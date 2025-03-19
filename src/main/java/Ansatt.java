@@ -4,7 +4,7 @@ import jakarta.persistence.Table;
 
 import java.util.Date;
 
-@Table(schema = "")
+@Table(schema = "oblig3")
 @Entity
 public class Ansatt {
 

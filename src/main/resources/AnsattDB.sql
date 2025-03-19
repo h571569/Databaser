@@ -6,14 +6,14 @@ SET search_path TO oblig3;
 CREATE TABLE ansatt (
 
     ansattid serial, primary key,
-    brukernavn char(4), unique,
-    fornavn varchar(25),
-    etternavn varchar(25),
-    ansdato date,
-    stilling varchar(25),
-    manedslonn smallint,
-    avdeling varchar(25),
-    prosjekter varchar(255)
+    brukernavn char(4), unique, not null,
+    fornavn varchar(25), not null,
+    etternavn varchar(25), not null,
+    ansdato date, not null,
+    stilling varchar(25), not null,
+    manedslonn smallint, not null,
+    avdeling varchar(25), not null,
+    prosjekter varchar(255) not null
 );
 
 INSERT INTO
