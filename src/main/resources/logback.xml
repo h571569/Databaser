@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Completely silence Hibernate logging -->
+    <logger name="org.hibernate" level="OFF"/>
+    <logger name="org.hibernate.jpa.internal.util.LogHelper" level="OFF"/>
+    <logger name="org.hibernate.Version" level="OFF"/>
+    <logger name="org.hibernate.cfg.Environment" level="OFF"/>
+    <logger name="org.hibernate.engine.jdbc.connections.internal" level="OFF"/>
+    <logger name="org.jboss" level="OFF"/>
+
+    <!-- Bare minimum warnings and errors for other logs -->
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
