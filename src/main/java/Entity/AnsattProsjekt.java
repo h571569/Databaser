@@ -20,9 +20,10 @@ public class AnsattProsjekt {
 
     public AnsattProsjekt() {}
 
-    public AnsattProsjekt(Prosjekt prosjekt, Ansatt ansatt) {
+    public AnsattProsjekt(Prosjekt prosjekt, Ansatt ansatt, int timer) {
         this.prosjekt = prosjekt;
         this.ansatt = ansatt;
+        this.timer = timer;
         ansatt.leggTilAnsattProsjekt(this);
         prosjekt.leggTilAnsattProsjekt(this);
     }

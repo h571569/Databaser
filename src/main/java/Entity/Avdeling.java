@@ -18,6 +18,10 @@ public class Avdeling {
 
     public Avdeling() {}
 
+    public Avdeling(String avdelingNavn) {
+        this.avdelingNavn = avdelingNavn;
+    }
+
     public List<Ansatt> getAnsatte() {
         return ansatte;
     }
@@ -26,6 +30,12 @@ public class Avdeling {
     }
     public void  fjernAnsatte(Ansatt ansatt){
         ansatte.remove(ansatt);
+    }
+    public int getAvdelingId() {
+        return avdelingId;
+    }
+    public String getAvdelingNavn() {
+        return avdelingNavn;
     }
 
 

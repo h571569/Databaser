@@ -25,8 +25,8 @@ public class Ansatt {
     private Avdeling avdeling;
 
     // Vet ikke om denne skal være her eller i avdeling
-    @OneToOne(mappedBy = "sjef")
-    private Avdeling sjef;
+//    @OneToOne(mappedBy = "sjef")
+//    private Avdeling sjef;
 
     @OneToMany(mappedBy = "prosjekt")
     private List<AnsattProsjekt> ansattProsjekt;
@@ -56,64 +56,35 @@ public class Ansatt {
     public Avdeling getAvdeling() {
         return avdeling;
     }
-    public void setAvdeling(Avdeling avdeling) {
-        this.avdeling = avdeling;
-    }
 
     public String getFornavn() {
         return fornavn;
     }
 
-    public void setFornavn(String fornavn) {
-        this.fornavn = fornavn;
-    }
-
     public int getAnsattId() {
         return ansattId;
-    }
-    public void setAnsattId(int ansattId) {
-        this.ansattId = ansattId;
     }
 
     public String getBrukernavn() {
         return brukernavn;
     }
 
-    public void setBrukernavn(String brukernavn) {
-        this.brukernavn = brukernavn;
-    }
-
     public String getEtternavn() {
         return etternavn;
-    }
-
-    public void setEtternavn(String etternavn) {
-        this.etternavn = etternavn;
     }
 
     public Date getAnsDato() {
         return ansDato;
     }
 
-    public void setAnsDato(Date ansDato) {
-        this.ansDato = ansDato;
-    }
-
     public String getStilling() {
         return stilling;
-    }
-
-    public void setStilling(String stilling) {
-        this.stilling = stilling;
     }
 
     public int getManedslonn() {
         return manedslonn;
     }
 
-    public void setManedslonn(int manedslonn) {
-        this.manedslonn = manedslonn;
-    }
 
     
     public String toString() {
