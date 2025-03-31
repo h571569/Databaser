@@ -15,7 +15,7 @@ public class Prosjekt {
     private String prosjektNavn;
     private String beskrivelse;
 
-    @OneToMany(mappedBy = "prosjekt")
+    @OneToMany(mappedBy = "prosjekt", fetch = FetchType.EAGER)
     private List<AnsattProsjekt> ansattProsjekt;
 
 

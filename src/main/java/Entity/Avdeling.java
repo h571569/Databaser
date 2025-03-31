@@ -2,6 +2,7 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(schema = "oblig3")
@@ -20,6 +21,7 @@ public class Avdeling {
 
     public Avdeling(String avdelingNavn) {
         this.avdelingNavn = avdelingNavn;
+        ansatte =  new ArrayList<Ansatt>();
     }
 
     public List<Ansatt> getAnsatte() {
@@ -27,9 +29,11 @@ public class Avdeling {
     }
     public void  leggTilAnsatte(Ansatt ansatt){
         ansatte.add(ansatt);
+        ansatt.setAvdeling(this);
     }
     public void  fjernAnsatte(Ansatt ansatt){
         ansatte.remove(ansatt);
+        ansatt.setAvdeling(null);
     }
     public int getAvdelingId() {
         return avdelingId;

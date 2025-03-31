@@ -28,7 +28,7 @@ public class Ansatt {
 //    @OneToOne(mappedBy = "sjef")
 //    private Avdeling sjef;
 
-    @OneToMany(mappedBy = "prosjekt")
+    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
     private List<AnsattProsjekt> ansattProsjekt;
 
     public Ansatt(){}
@@ -44,6 +44,7 @@ public class Ansatt {
 
     public void leggTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
         ansattProsjekt.add(ansattprosjekt);
+
     }
     public void fjernTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
         ansattProsjekt.remove(ansattprosjekt);
@@ -51,6 +52,10 @@ public class Ansatt {
 
     public List<AnsattProsjekt> getAnsattProsjekt() {
         return ansattProsjekt;
+    }
+
+    public void setAvdeling(Avdeling avdeling) {
+        this.avdeling = avdeling;
     }
 
     public Avdeling getAvdeling() {
