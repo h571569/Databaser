@@ -3,9 +3,7 @@ package DAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import klasser.Avdeling;
-
-import java.security.PublicKey;
+import Entity.Avdeling;
 
 public class AvdelingDAO {
 

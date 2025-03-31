@@ -3,7 +3,7 @@ package DAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import klasser.Ansatt;
+import Entity.Ansatt;
 
 public class AnsattDAO {
 

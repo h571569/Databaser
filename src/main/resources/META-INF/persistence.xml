@@ -6,10 +6,10 @@
 
     <persistence-unit name="personPCU" transaction-type="RESOURCE_LOCAL">
 
-        <class>klasser.Ansatt</class>
-        <class>klasser.Avdeling</class>
-        <class>klasser.Prosjekt</class>
-        <class>klasser.AnsattProsjekt</class>
+        <class>Entity.Ansatt</class>
+        <class>Entity.Avdeling</class>
+        <class>Entity.Prosjekt</class>
+        <class>Entity.AnsattProsjekt</class>
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>

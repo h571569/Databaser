@@ -1,4 +1,4 @@
-package klasser;
+package Entity;
 
 @SuppressWarnings("unused")
 public class AnsattProsjektPK {
