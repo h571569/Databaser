@@ -33,7 +33,7 @@ public class AnsattDAO {
         }
     }
 
-    public void hentAlleAnsatte () {
+    public void hentAlleAnsatte() {
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -43,5 +43,14 @@ public class AnsattDAO {
             em.close();
         }
     }
+
+    public void oppdaterAnsattStilling() {
+
+    }
+
+    public void leggTilAnsatt() {
+
+    }
+
 
 }
