@@ -1,21 +1,64 @@
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+package klasser;
+
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Table(schema = "oblig3")
 @Entity
 public class Ansatt {
 
 
-    @Id private int ansattId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ansattId;
+
     private String brukernavn;
     private String fornavn;
     private String etternavn;
     private Date ansDato;
     private String stilling;
     private int manedslonn;
+
+    @ManyToOne
+    @JoinColumn(name = "avdelingId")
+    private Avdeling avdeling;
+
+    // Vet ikke om denne skal være her eller i avdeling
+    @OneToOne(mappedBy = "sjef")
+    private Avdeling sjef;
+
+    @OneToMany(mappedBy = "prosjekt")
+    private List<AnsattProsjekt> ansattProsjekt;
+
+    public Ansatt(){}
+
+    public Ansatt(String brukernavn, String fornavn, String etternavn, Date ansDato, String stilling, int manedslonn) {
+        this.brukernavn = brukernavn;
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.ansDato = ansDato;
+        this.stilling = stilling;
+        this.manedslonn = manedslonn;
+    }
+
+    public void leggTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
+        ansattProsjekt.add(ansattprosjekt);
+    }
+    public void fjernTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
+        ansattProsjekt.remove(ansattprosjekt);
+    }
+
+    public List<AnsattProsjekt> getAnsattProsjekt() {
+        return ansattProsjekt;
+    }
+
+    public Avdeling getAvdeling() {
+        return avdeling;
+    }
+    public void setAvdeling(Avdeling avdeling) {
+        this.avdeling = avdeling;
+    }
 
     public String getFornavn() {
         return fornavn;
@@ -28,7 +71,6 @@ public class Ansatt {
     public int getAnsattId() {
         return ansattId;
     }
-
     public void setAnsattId(int ansattId) {
         this.ansattId = ansattId;
     }
@@ -73,9 +115,9 @@ public class Ansatt {
         this.manedslonn = manedslonn;
     }
 
-    @Override
-    public String toString() {
-        return "Ansatt{" +
+    
+    public void skrivUt(String s) {
+        System.out.println("Ansatt{" +
                 "ansattId=" + ansattId +
                 ", brukernavn='" + brukernavn + '\'' +
                 ", fornavn='" + fornavn + '\'' +
@@ -83,7 +125,6 @@ public class Ansatt {
                 ", ansDato=" + ansDato +
                 ", stilling='" + stilling + '\'' +
                 ", manedslonn=" + manedslonn +
-                '}';
+                '}');
     }
-
 }

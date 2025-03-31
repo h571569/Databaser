@@ -6,7 +6,7 @@
 
     <persistence-unit name="personPCU" transaction-type="RESOURCE_LOCAL">
 
-        <class>Ansatt</class>
+        <class>klasser.Ansatt</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <!--  Generelle JPA properties -->
