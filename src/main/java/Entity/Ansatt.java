@@ -116,8 +116,8 @@ public class Ansatt {
     }
 
     
-    public void skrivUt(String s) {
-        System.out.println("Ansatt{" +
+    public String toString() {
+        return "Ansatt{" +
                 "ansattId=" + ansattId +
                 ", brukernavn='" + brukernavn + '\'' +
                 ", fornavn='" + fornavn + '\'' +
@@ -125,6 +125,16 @@ public class Ansatt {
                 ", ansDato=" + ansDato +
                 ", stilling='" + stilling + '\'' +
                 ", manedslonn=" + manedslonn +
-                '}');
+                '}';
+    }
+
+    public void skrivUt(String innrykk) {
+        System.out.printf("%sAnsatt nr %s: %s %s %s %s %s", innrykk, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn);
+    }
+
+    public void skrivUtMedProsjekter() {
+        System.out.println();
+        skrivUt("");
+        ansattProsjekt.forEach(p -> p.skrivUt("\n   "));
     }
 }

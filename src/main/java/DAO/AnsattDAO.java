@@ -2,8 +2,11 @@ package DAO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import Entity.Ansatt;
+
+import java.util.Date;
 
 public class AnsattDAO {
 
@@ -48,7 +51,23 @@ public class AnsattDAO {
 
     }
 
-    public void leggTilAnsatt() {
+    public void leggTilAnsatt(String brukernavn, String fornavn, String etternavn, Date ansDato, String stilling, int manedslonn){
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            Ansatt ansatt = new Ansatt(brukernavn,fornavn,etternavn,ansDato,stilling,manedslonn);
+            em.persist(ansatt);
+            tx.commit();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        } finally {
+            em.close();
+        }
 
     }
 
