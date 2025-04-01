@@ -29,8 +29,8 @@ public class Ansatt {
     @OneToOne(mappedBy = "sjef")
     private Avdeling sjef;
 
-//    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
-//    private List<ProsjektDeltagelse> deltagelser;
+    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
+    private List<ProsjektDeltagelse> deltagelser;
 
     public Ansatt(){}
 
@@ -42,18 +42,18 @@ public class Ansatt {
         this.stilling = stilling;
         this.manedslonn = manedslonn;
     }
-//
-//    public void leggTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
-//        deltagelser.add(prosjektDeltagelse);
-//
-//    }
-//    public void fjernTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
-//        deltagelser.remove(prosjektDeltagelse);
-//    }
-//
-//    public List<ProsjektDeltagelse> getProsjektDeltagelse() {
-//        return deltagelser;
-//    }
+
+    public void leggTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
+        deltagelser.add(prosjektDeltagelse);
+
+    }
+    public void fjernTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
+        deltagelser.remove(prosjektDeltagelse);
+    }
+
+    public List<ProsjektDeltagelse> getProsjektDeltagelse() {
+        return deltagelser;
+    }
 
     public void setAvdeling(Avdeling avdeling) {
         this.avdeling = avdeling;
@@ -96,10 +96,6 @@ public class Ansatt {
     public void setManedslonn(int manedslonn) {
         this.manedslonn = manedslonn;
     }
-
-
-
-
 
     @Override
     public String toString() {

@@ -8,8 +8,8 @@
 
         <class>Entity.Ansatt</class>
         <class>Entity.Avdeling</class>
-        <!--  <class>Entity.Prosjekt</class>
-        <class>Entity.ProsjektDeltagelse</class> -->
+        <class>Entity.Prosjekt</class>
+        <class>Entity.ProsjektDeltagelse</class>
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>

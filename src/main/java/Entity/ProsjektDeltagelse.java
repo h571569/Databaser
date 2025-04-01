@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class ProsjektDeltagelse {
 
     private int timer = 0;
+    private  String rolle;
 
     @Id
     @ManyToOne
@@ -20,12 +21,29 @@ public class ProsjektDeltagelse {
 
     public ProsjektDeltagelse() {}
 
-    public ProsjektDeltagelse(Prosjekt prosjekt, Ansatt ansatt, int timer) {
+    public ProsjektDeltagelse(Prosjekt prosjekt, Ansatt ansatt, int timer, String rolle) {
         this.prosjekt = prosjekt;
         this.ansatt = ansatt;
         this.timer = timer;
-//        ansatt.leggTilAnsattProsjekt(this);
+        this.rolle= rolle;
+        ansatt.leggTilAnsattProsjekt(this);
         prosjekt.leggTilAnsattProsjekt(this);
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+    public int getTimer() {
+        return timer;
+    }
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
+    }
+    public String getRolle() {
+        return rolle;
+    }
+    public Ansatt getAnsatt() {
+        return ansatt;
     }
 
     public void skrivUt(String innrykk) {

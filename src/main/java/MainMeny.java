@@ -1,5 +1,7 @@
 import DAO.AnsattDAO;
 import DAO.AvdelingDAO;
+import DAO.ProsjektDAO;
+import DAO.ProsjektDeltagelseDAO;
 import Entity.Avdeling;
 
 public class MainMeny {
@@ -10,6 +12,9 @@ public class MainMeny {
 
         AnsattDAO ansattDAO = new AnsattDAO();
         AvdelingDAO avdelingDAO = new AvdelingDAO();
+        ProsjektDAO prosjektDAO = new ProsjektDAO();
+        ProsjektDeltagelseDAO prosjektDeltagelseDAO = new ProsjektDeltagelseDAO();
+
 
         Avdeling avdeling = avdelingDAO.finnAvdelingMedId(6);
         avdelingDAO.slettAvdelingMedId(6);
