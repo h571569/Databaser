@@ -24,7 +24,7 @@ public class ProsjektDeltagelse {
         this.prosjekt = prosjekt;
         this.ansatt = ansatt;
         this.timer = timer;
-        ansatt.leggTilAnsattProsjekt(this);
+//        ansatt.leggTilAnsattProsjekt(this);
         prosjekt.leggTilAnsattProsjekt(this);
     }
 

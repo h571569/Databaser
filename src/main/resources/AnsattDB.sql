@@ -6,9 +6,9 @@ SET search_path TO oblig3;
 
 CREATE TABLE avdeling (
 
-                          avdelingId   SERIAL primary key,
-                          avdelingNavn varchar(50),
-                          sjefId     int not null
+     avdelingId   SERIAL primary key,
+     avdelingNavn varchar(50),
+     sjefId     int not null
 );
 
 CREATE TABLE ansatt (
@@ -39,13 +39,14 @@ values
 
 
 INSERT INTO
-    avdeling(avdelingNavn)
+    avdeling(avdelingNavn,sjefId)
 values
-    ('IT-Avdeling'),
-    ('WebDev-Avdeling');
+    ('IT-Avdeling',1),
+    ('WebDev-Avdeling',5);
 
-UPDATE avdeling set sjefId = 1 where avdelingId = 1;
-UPDATE avdeling set sjefId = 5 where avdelingId = 2;
+-- Man kan gjøre dette for å sette sjef i tabellen, men hvis avdeling MÅ ha en sjef så kan man like gjerne sette det inn med en gang.
+-- UPDATE avdeling set sjefId = 1 where avdelingId = 1;
+-- UPDATE avdeling set sjefId = 5 where avdelingId = 2;
 
 CREATE TABLE prosjekt (
 

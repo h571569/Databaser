@@ -65,6 +65,7 @@ public class Avdeling {
         skrivUt("");
         ansatte.forEach(a -> a.skrivUt("\n   "));
         System.out.println();
-        System.out.println("Sjef er " + getSjef());
+        System.out.println("sjefen for " + avdelingNavn + " er:");
+        getSjef().skrivUt("");
     }
 }

@@ -1,11 +1,8 @@
 import DAO.AnsattDAO;
 import DAO.AvdelingDAO;
-import Entity.Ansatt;
 import Entity.Avdeling;
 
-import java.time.LocalDate;
-
-public class Main {
+public class MainMeny {
     public static void main(String[] args) {
 
 
@@ -14,10 +11,13 @@ public class Main {
         AnsattDAO ansattDAO = new AnsattDAO();
         AvdelingDAO avdelingDAO = new AvdelingDAO();
 
+        Avdeling avdeling = avdelingDAO.finnAvdelingMedId(6);
+        avdelingDAO.slettAvdelingMedId(6);
 
-        avdelingDAO.leggTilNyAvdeling("Frontend-avdeling", 1);
-        Avdeling av1 = avdelingDAO.finnAvdelingMedId(6);
-        av1.skrivUtMedAnsatte();
+
+//        ansattDAO.slettAnsattMedId(2);
+//        Avdeling av1 = avdelingDAO.finnAvdelingMedId(2);
+//        av1.skrivUtMedAnsatte();
 
 
 //        Ansatt a1 = ansattDAO.finnAnsattMedId(1);

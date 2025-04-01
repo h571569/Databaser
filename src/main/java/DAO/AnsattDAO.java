@@ -174,15 +174,28 @@ public class AnsattDAO {
 
     }
 
-    public void slettAnsattMedId() {
+
+
+    public void slettAnsattMedId(int ansattId) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
+            Ansatt ansatt  = em.find(Ansatt.class,ansattId);
+            if(ansatt == null) {
+                System.out.println("Ansatt ikke funnet i databasen");
+                return;
+            }
+            Avdeling avdeling = ansatt.getAvdeling();
+            if(avdeling.getSjef().getAnsattId() == ansattId) {
+                System.out.println("Ansatt er sjef i avdeling " + ansatt.getAvdeling().getAvdelingId() + " og kan ikke slettes");
+                return;
+            }
 
-            //skal ikke være mulig å slette ansatt hvis han er sjef i en avdeling
-
+            avdeling.fjernAnsatt(ansatt);
+            em.remove(ansatt);
+            tx.commit();
 
         } catch (Throwable e) {
             e.printStackTrace();

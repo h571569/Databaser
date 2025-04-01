@@ -9,7 +9,7 @@
         <class>Entity.Ansatt</class>
         <class>Entity.Avdeling</class>
         <!--  <class>Entity.Prosjekt</class>
-        <class>Entity.AnsattProsjekt</class> -->
+        <class>Entity.ProsjektDeltagelse</class> -->
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
@@ -20,7 +20,7 @@
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:postgresql://ider-database.westeurope.cloudapp.azure.com:5433/h571569"/>
             <property name="jakarta.persistence.jdbc.user" value="h571569"/>
-            <property name="jakarta.persistence.jdbc.password" value="Jidt363ii"/>
+            <property name="jakarta.persistence.jdbc.password" value="123456"/>
             <property name="jakarta.persistence.exclude-unlisted-classes" value="false"/>
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="both"/>

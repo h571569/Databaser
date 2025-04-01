@@ -58,12 +58,26 @@ public class AvdelingDAO {
             em.close();
         }
     }
+
     public void  slettAvdelingMedId(int id) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         try {
-            //skal ikke være mulig å slette hvis ansatte jobber her
+            tx.begin();
+            Avdeling avdeling = em.find(Avdeling.class, id);
+            if(avdeling == null) {
+                System.out.println("Avdeling finnes ikke i databasen");
+                return;
+            }
+            if(!avdeling.getAnsatte().isEmpty()) {
+                System.out.println("Det er ansatte i avdelingen, avdelingen kan ikke slettes med ansatte som fortsatt jobber der");
+                return;
+            }
+            em.remove(avdeling);
+
+            tx.commit();
+
 
         } catch (Throwable e) {
             e.printStackTrace();
