@@ -18,13 +18,19 @@ CREATE TABLE ansatt (
 INSERT INTO
     ansatt(brukernavn, fornavn, etternavn, ansdato, stilling, manedslonn)
 values
-    ('edam', 'edvar', 'andersen', '2024-06-06', 'Ingeniør', 55000);
+    ('edam', 'edvar', 'andersen', '2024-06-06', 'Ingeniør', 55000),
+    ('fred','fredrik', 'furustøl','2022-01-09','backend',60000),
+    ('wesl','wesley','soumele','2025-03-29','frontend',49000),
+    ('jona','jonas','glambek','2019-05-08','fullstack',66000),
+    ('gaby','gabriel','hugaas','2019-09-31','seniordev',95000),
+    ('elif','elias','frette','2023-04-07','developer',70000);
+
 
 CREATE TABLE avdeling (
 
     avdelingId   AUTO_INCREMENT, primary key,
     avdelingNavn varchar(50),
-    ansattId       smallint, foreign key
+    ansattId     smallint, foreign key
 );
 
 INSERT INTO
