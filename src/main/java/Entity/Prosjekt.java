@@ -16,7 +16,7 @@ public class Prosjekt {
     private String beskrivelse;
 
     @OneToMany(mappedBy = "prosjekt", fetch = FetchType.EAGER)
-    private List<AnsattProsjekt> ansattProsjekt;
+    private List<ProsjektDeltagelse> deltagelser;
 
 
     public Prosjekt() {}
@@ -26,11 +26,11 @@ public class Prosjekt {
         this.beskrivelse = beskrivelse;
     }
 
-    public void leggTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
-        ansattProsjekt.add(ansattprosjekt);
+    public void leggTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
+        deltagelser.add(prosjektDeltagelse);
     }
-    public void fjernTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
-        ansattProsjekt.remove(ansattprosjekt);
+    public void fjernTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
+        deltagelser.remove(prosjektDeltagelse);
     }
 
     public int getProsjektId() {
@@ -42,8 +42,8 @@ public class Prosjekt {
     public String getBeskrivelse() {
         return beskrivelse;
     }
-    public List<AnsattProsjekt> getAnsattProsjekt() {
-        return ansattProsjekt;
+    public List<ProsjektDeltagelse> getAnsattProsjekt() {
+        return deltagelser;
     }
     public void skrivUt(String innrykk) {
         System.out.printf("%sProsjekt nr %d: %s: %s", innrykk, prosjektId, prosjektNavn, beskrivelse);
@@ -52,7 +52,7 @@ public class Prosjekt {
     public void skrivUtMedAnsatte() {
         System.out.println();
         skrivUt("");
-        ansattProsjekt.forEach(a -> a.skrivUt("\n   "));
+        deltagelser.forEach(a -> a.skrivUt("\n   "));
     }
 
 }

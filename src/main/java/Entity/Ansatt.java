@@ -2,7 +2,7 @@ package Entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Table(schema = "oblig3")
@@ -16,7 +16,7 @@ public class Ansatt {
     private String brukernavn;
     private String fornavn;
     private String etternavn;
-    private Date ansDato;
+    private LocalDate ansDato;
     private String stilling;
     private int manedslonn;
 
@@ -25,15 +25,15 @@ public class Ansatt {
     private Avdeling avdeling;
 
     // Vet ikke om denne skal være her eller i avdeling
-//    @OneToOne(mappedBy = "sjef")
-//    private Avdeling sjef;
-
-    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
-    private List<AnsattProsjekt> ansattProsjekt;
+    @OneToOne(mappedBy = "sjef")
+    private Avdeling sjef;
+//
+//    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
+//    private List<ProsjektDeltagelse> deltagelser;
 
     public Ansatt(){}
 
-    public Ansatt(String brukernavn, String fornavn, String etternavn, Date ansDato, String stilling, int manedslonn) {
+    public Ansatt(String brukernavn, String fornavn, String etternavn, LocalDate ansDato, String stilling, int manedslonn) {
         this.brukernavn = brukernavn;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
@@ -42,16 +42,17 @@ public class Ansatt {
         this.manedslonn = manedslonn;
     }
 
-    public void leggTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
-        ansattProsjekt.add(ansattprosjekt);
+    public void leggTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
+//        deltagelser.add(prosjektDeltagelse);
 
     }
-    public void fjernTilAnsattProsjekt(AnsattProsjekt ansattprosjekt) {
-        ansattProsjekt.remove(ansattprosjekt);
+    public void fjernTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
+//        deltagelser.remove(prosjektDeltagelse);
     }
 
-    public List<AnsattProsjekt> getAnsattProsjekt() {
-        return ansattProsjekt;
+    public List<ProsjektDeltagelse> getProsjektDeltagelse() {
+//        return deltagelser;
+        return null;
     }
 
     public void setAvdeling(Avdeling avdeling) {
@@ -78,39 +79,50 @@ public class Ansatt {
         return etternavn;
     }
 
-    public Date getAnsDato() {
+    public LocalDate getAnsDato() {
         return ansDato;
     }
 
     public String getStilling() {
         return stilling;
     }
+    public void setStilling(String stilling) {
+        this.stilling = stilling;
+    }
 
     public int getManedslonn() {
         return manedslonn;
     }
+    public void setManedslonn(int manedslonn) {
+        this.manedslonn = manedslonn;
+    }
+    public void setSjef(Avdeling sjef) {
+        this.sjef = sjef;
+    }
+    public Avdeling getSjef() {
+        return sjef;
+    }
 
 
-    
+    @Override
     public String toString() {
-        return "Ansatt{" +
-                "ansattId=" + ansattId +
-                ", brukernavn='" + brukernavn + '\'' +
-                ", fornavn='" + fornavn + '\'' +
-                ", etternavn='" + etternavn + '\'' +
-                ", ansDato=" + ansDato +
-                ", stilling='" + stilling + '\'' +
-                ", manedslonn=" + manedslonn +
-                '}';
+        return "Ansatt nr " + ansattId +
+                " [ brukernavn = " + brukernavn +
+                ", fornavn = " + fornavn +
+                ", etternavn = " + etternavn +
+                ", ansDato = " + ansDato +
+                ", stilling = " + stilling +
+                ", månedslonn = " + manedslonn +
+                " ]";
     }
 
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %s: %s %s %s %s %s", innrykk, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn);
+        System.out.printf("%sAnsatt nr %d: %s %s %s %s %s %d", innrykk, ansattId, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn);
     }
 
     public void skrivUtMedProsjekter() {
         System.out.println();
         skrivUt("");
-        ansattProsjekt.forEach(p -> p.skrivUt("\n   "));
+//        deltagelser.forEach(p -> p.skrivUt("\n   "));
     }
 }

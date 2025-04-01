@@ -1,6 +1,6 @@
 
-DROP SCHEMA IF EXIST oblig3 CASCADE;
-CREATE SCHEMA oblig3:
+DROP SCHEMA IF EXISTS oblig3 CASCADE;
+CREATE SCHEMA oblig3;
 SET search_path TO oblig3;
 
 CREATE TABLE ansatt (
@@ -11,8 +11,10 @@ CREATE TABLE ansatt (
     etternavn  varchar(50),
     ansdato    date,
     stilling   varchar(50),
-    manedslonn smallint,
-    avdelingId smallint, foreign key
+    manedslonn int,
+    avdelingId int,
+    foreign key (avdelingId) references avdeling(avdelingId)
+
 );
 
 INSERT INTO
@@ -30,13 +32,18 @@ CREATE TABLE avdeling (
 
     avdelingId   AUTO_INCREMENT, primary key,
     avdelingNavn varchar(50),
-    ansattId     smallint, foreign key
+    sjefId     int,
+    foreign key (sjefId) references ansatt(ansattId);
 );
 
 INSERT INTO
     avdeling(avdelingNavn)
 values
-    ('HVL');
+    ('IT-Avdeling'),
+    ("WebDev-Avdeling");
+
+UPDATE avdeling set sjefId = 1 where avdelingId = 1;
+UPDATE avdeling set sjefId = 5 where avdelingId = 2;
 
 CREATE TABLE prosjekt (
 
@@ -48,22 +55,16 @@ CREATE TABLE prosjekt (
 INSERT INTO
     prosjekt(prosjektNavn, TEXT)
 values
-    ('JPA','lage en oblig');
+    ('obligProsjekt','lage en oblig'),
+    ("NasaProsjekt", "fikse sattelitt forbindelse"),
+    ("MilitærKryptering", "kryptere data for militæret");
 
-CREATE TABLE ansattProsjekt (
+CREATE TABLE prosjektDeltagelse (
 
-    ansattId     smallint, primary key, foreign key,
-    prosjektId   smallint, primary key, foreign key,
+    ansattId     int, primary key,
+    prosjektId   int, primary key,
     rolle        varchar(50),
-    arbeidstimer smallint,
+    arbeidstimer int,
+    foreign key (ansattId) references ansatt(ansattId),
+    foreign key (prosjektId) references prosjekt(prosjektId)
 );
-
-insert into
-    ansattProsjekt(rolle, arbeidstimer)
-values
-    ('Prosjektleder', 120);
-
-SELECT * from ansatt;
-SELECT * from avdeling;
-SELECT * from prosjekt;
-SELECT * from ansattProsjekt;

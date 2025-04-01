@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(schema = "oblig3")
-public class AnsattProsjekt {
+public class ProsjektDeltagelse {
 
     private int timer = 0;
 
@@ -18,9 +18,9 @@ public class AnsattProsjekt {
     @JoinColumn(name = "ansattid")
     private Ansatt ansatt;
 
-    public AnsattProsjekt() {}
+    public ProsjektDeltagelse() {}
 
-    public AnsattProsjekt(Prosjekt prosjekt, Ansatt ansatt, int timer) {
+    public ProsjektDeltagelse(Prosjekt prosjekt, Ansatt ansatt, int timer) {
         this.prosjekt = prosjekt;
         this.ansatt = ansatt;
         this.timer = timer;
