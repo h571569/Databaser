@@ -76,3 +76,5 @@ values (1,1,'leder',100),
        (4,2,'developer',60),
        (5,3,'leder',95),
        (6,3,'developer',50);
+
+

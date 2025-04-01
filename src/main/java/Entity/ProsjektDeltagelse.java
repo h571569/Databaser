@@ -2,53 +2,69 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.security.PublicKey;
+
 @Entity
-@Table(schema = "oblig3")
+@Table(schema = "oblig3", name = "prosjektDeltagelse")
 @IdClass(ProsjektDeltagelsePK.class)
 public class ProsjektDeltagelse {
 
-    private int timer = 0;
-    private  String rolle;
+    private int arbeidstimer;
+    private String rolle;
+
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "prosjektId")
+    @JoinColumn(name = "prosjektid")
     private Prosjekt prosjekt;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ansattid")
     private Ansatt ansatt;
 
     public ProsjektDeltagelse() {}
 
-    public ProsjektDeltagelse(Prosjekt prosjekt, Ansatt ansatt, int timer, String rolle) {
-        this.prosjekt = prosjekt;
-        this.ansatt = ansatt;
-        this.timer = timer;
-        this.rolle= rolle;
-        ansatt.leggTilAnsattProsjekt(this);
-        prosjekt.leggTilAnsattProsjekt(this);
+    public int getArbeidstimer() {
+        return arbeidstimer;
     }
 
-    public void setTimer(int timer) {
-        this.timer = timer;
+    public void setArbeidstimer(int arbeidstimer) {
+        this.arbeidstimer = arbeidstimer;
     }
-    public int getTimer() {
-        return timer;
-    }
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
-    }
+
     public String getRolle() {
         return rolle;
+    }
+    public Prosjekt getProsjekt() {
+        return prosjekt;
+    }
+    public void setProsjekt(Prosjekt prosjekt) {
+        this.prosjekt = prosjekt;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
     }
     public Ansatt getAnsatt() {
         return ansatt;
     }
+    public void setAnsatt(Ansatt ansatt) {
+        this.ansatt = ansatt;
+    }
+
+
+    public ProsjektDeltagelse(Ansatt ansatt, Prosjekt prosjekt, String rolle) {
+        this.ansatt = ansatt;
+        this.prosjekt = prosjekt;
+        this.rolle = rolle;
+        arbeidstimer  = 0;
+        ansatt.leggTilAnsattProsjekt(this);
+        prosjekt.leggTilAnsattProsjekt(this);
+    }
 
     public void skrivUt(String innrykk) {
-        System.out.printf("%sDeltagelse: %s %s, %s, %d timer", innrykk,
-                ansatt.getFornavn(), ansatt.getEtternavn(), prosjekt.getProsjektNavn(), timer);
+        System.out.printf("%sDeltagelse: Navn: %s %s, ProsjektID: %d - %s, Rolle: %s, %d timer", innrykk,
+                ansatt.getFornavn(), ansatt.getEtternavn(),  prosjekt.getProsjektId(), prosjekt.getProsjektNavn(), rolle, this.getArbeidstimer());
     }
 }

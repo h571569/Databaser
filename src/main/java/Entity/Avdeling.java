@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(schema = "oblig3", name = "avdeling")
 @Entity
+@Table(schema = "oblig3", name = "avdeling")
 public class Avdeling {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

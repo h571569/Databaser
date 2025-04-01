@@ -3,6 +3,8 @@ package DAO;
 import jakarta.persistence.*;
 import Entity.Ansatt;
 import Entity.Avdeling;
+import Entity.Prosjekt;
+import Entity.ProsjektDeltagelse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +20,9 @@ public class AnsattDAO {
 
         try {
             return em.find(Ansatt.class, id);
+        } catch (NoResultException e) {
+            System.out.println("Ansatt ikke funnet");
+            return null;
         } finally {
             em.close();
         }
@@ -32,7 +37,12 @@ public class AnsattDAO {
         try {
             TypedQuery<Ansatt> query = em.createQuery(queryString, Ansatt.class);
             query.setParameter("brukernavn", brukernavn);
-            return query.getSingleResult();
+            try {
+                return query.getSingleResult();
+            } catch (NoResultException e) {
+                System.out.println("Ansatt ikke funnet");
+                return null;
+            }
 
         } finally {
             em.close();
@@ -48,7 +58,7 @@ public class AnsattDAO {
             List<Ansatt> ansatte = query.getResultList();
 
             for (Ansatt ansatt : ansatte) {
-                System.out.println(ansatt);
+                ansatt.skrivUtMedProsjekter();
             }
 
         } finally {
@@ -65,10 +75,13 @@ public class AnsattDAO {
             Ansatt ansatt = em.find(Ansatt.class, ansattId);
             if(ansatt != null) {
                 ansatt.setStilling(stilling);
+                em.merge(ansatt);
             } else {
                 System.out.println("Ansatt " + ansattId + " ikke funnet i databasen");
             }
             tx.commit();
+
+            System.out.println("Ansatt har fått ny stilling til: " + stilling);
         } catch  (Throwable e) {
             e.printStackTrace();
             if (tx.isActive()) {
@@ -78,7 +91,7 @@ public class AnsattDAO {
             em.close();
         }
     }
-    public void oppdaterAnsattLonn(int ansattId,  int manedsLonn) {
+    public void oppdaterAnsattLonn(int ansattId,  int nyManedsLonn) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
@@ -86,11 +99,14 @@ public class AnsattDAO {
             tx.begin();
             Ansatt ansatt = em.find(Ansatt.class, ansattId);
             if(ansatt != null) {
-                ansatt.setManedslonn(manedsLonn);
+                ansatt.setManedslonn(nyManedsLonn);
+                em.merge(ansatt);
             } else {
                 System.out.println("Ansatt " + ansattId + " ikke funnet i databasen");
             }
             tx.commit();
+
+            System.out.println("Ansatt har oppdatert månedslønn til " +  nyManedsLonn);
         } catch  (Throwable e) {
             e.printStackTrace();
             if (tx.isActive()) {
@@ -121,6 +137,9 @@ public class AnsattDAO {
             avdeling.leggTilAnsatt(ansatt);
             em.persist(ansatt);
             tx.commit();
+
+            System.out.println("Ansatt ble lagt til");
+
         } catch (Throwable e) {
             e.printStackTrace();
             if (tx.isActive()) {
@@ -158,7 +177,7 @@ public class AnsattDAO {
             }
             avdeling.fjernAnsatt(ansatt);
             nyAvdeling.leggTilAnsatt(ansatt);
-            em.persist(ansatt);
+            em.merge(ansatt);
             tx.commit();
 
             System.out.println("Ansatt " + ansattId + " har byttet avdeling til " + nyAvdelingiD);
@@ -196,6 +215,7 @@ public class AnsattDAO {
             avdeling.fjernAnsatt(ansatt);
             em.remove(ansatt);
             tx.commit();
+            System.out.println("Ansatt med id " + ansattId + " ble slettet");
 
         } catch (Throwable e) {
             e.printStackTrace();
@@ -206,6 +226,4 @@ public class AnsattDAO {
             em.close();
         }
     }
-
-
 }

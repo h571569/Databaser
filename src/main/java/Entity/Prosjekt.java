@@ -2,6 +2,7 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,13 +11,13 @@ public class Prosjekt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int prosjektId;
+    private int prosjektid;
 
     private String prosjektNavn;
     private String beskrivelse;
 
     @OneToMany(mappedBy = "prosjekt")
-    private List<ProsjektDeltagelse> deltagelser;
+    private List<ProsjektDeltagelse> deltagelser = new ArrayList<>();
 
 
     public Prosjekt() {}
@@ -34,7 +35,7 @@ public class Prosjekt {
     }
 
     public int getProsjektId() {
-        return prosjektId;
+        return prosjektid;
     }
     public String getProsjektNavn() {
         return prosjektNavn;
@@ -46,7 +47,7 @@ public class Prosjekt {
         return deltagelser;
     }
     public void skrivUt(String innrykk) {
-        System.out.printf("%sProsjekt nr %d: %s: %s", innrykk, prosjektId, prosjektNavn, beskrivelse);
+        System.out.printf("%sProsjekt nr %d: %s: %s", innrykk, prosjektid, prosjektNavn, beskrivelse);
     }
 
     public void skrivUtMedAnsatte() {

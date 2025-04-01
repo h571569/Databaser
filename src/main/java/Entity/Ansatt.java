@@ -3,16 +3,16 @@ package Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-@Table(schema = "oblig3")
+@Table(schema = "oblig3", name = "ansatt")
 public class Ansatt {
 
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ansattId;
+    private int ansattid;
 
     private String brukernavn;
     private String fornavn;
@@ -29,8 +29,8 @@ public class Ansatt {
     @OneToOne(mappedBy = "sjef")
     private Avdeling sjef;
 
-    @OneToMany(mappedBy = "prosjekt")
-    private List<ProsjektDeltagelse> deltagelser;
+    @OneToMany(mappedBy = "ansatt")
+    private List<ProsjektDeltagelse> deltagelser = new ArrayList<>();
 
     public Ansatt(){}
 
@@ -68,7 +68,7 @@ public class Ansatt {
     }
 
     public int getAnsattId() {
-        return ansattId;
+        return ansattid;
     }
 
     public String getBrukernavn() {
@@ -99,7 +99,7 @@ public class Ansatt {
 
     @Override
     public String toString() {
-        return "Ansatt nr " + ansattId +
+        return "Ansatt nr " + ansattid +
                 " [ brukernavn = " + brukernavn +
                 ", fornavn = " + fornavn +
                 ", etternavn = " + etternavn +
@@ -111,7 +111,7 @@ public class Ansatt {
     }
 
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %d: %s %s %s %s %s %d %d", innrykk, ansattId, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn, avdeling.getAvdelingId());
+        System.out.printf("%sAnsatt nr %d: %s %s %s %s %s %d %d", innrykk, ansattid, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn, avdeling.getAvdelingId());
     }
 
     public void skrivUtMedProsjekter() {

@@ -1,22 +1,23 @@
 package DAO;
 
 import Entity.Ansatt;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import Entity.Avdeling;
 
 public class AvdelingDAO {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("personPCU");
 
-    public Avdeling finnAvdelingMedId(int id) {
+    public Avdeling finnAvdelingMedId(int avdelingId) {
         EntityManager em = emf.createEntityManager();
 
         try {
-            return em.find(Avdeling.class, id);
-        } finally {
+            return em.find(Avdeling.class, avdelingId);
+        } catch (NoResultException e) {
+            System.out.println("Avdeling ikke funnet");
+            return null;
+        }
+        finally {
             em.close();
         }
 
@@ -49,6 +50,8 @@ public class AvdelingDAO {
             em.merge(ansatt);
             tx.commit();
 
+            System.out.println(nyAvdeling + " er lagt til");
+
         } catch (Throwable e) {
             e.printStackTrace();
             if (tx.isActive()) {
@@ -59,13 +62,13 @@ public class AvdelingDAO {
         }
     }
 
-    public void  slettAvdelingMedId(int id) {
+    public void  slettAvdelingMedId(int avdelingid) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
-            Avdeling avdeling = em.find(Avdeling.class, id);
+            Avdeling avdeling = em.find(Avdeling.class, avdelingid);
             if(avdeling == null) {
                 System.out.println("Avdeling finnes ikke i databasen");
                 return;

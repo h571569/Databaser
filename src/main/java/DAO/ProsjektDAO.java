@@ -1,15 +1,19 @@
 package DAO;
 
 import Entity.Prosjekt;
+import Entity.ProsjektDeltagelse;
+import Entity.Ansatt;
 import jakarta.persistence.*;
 
+
+import java.security.PublicKey;
 import java.util.List;
 
 public class ProsjektDAO {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("personPCU");
 
-
+    //  Fikk ikke tid til denne
     public void slettProsjektMedId(int prosjektId) {
 
         //Det skal ikke være mulig å slett ett prosjekt om det er registrert timer i prosjektet
@@ -29,6 +33,7 @@ public class ProsjektDAO {
             }
             em.persist(prosjekt);
             tx.commit();
+            System.out.println("Prosjektet " + prosjektNavn + " ble lagt til");
         } catch (Throwable t) {
             if (tx.isActive()) {
                 tx.rollback();
@@ -44,7 +49,11 @@ public class ProsjektDAO {
 
         try {
             return em.find(Prosjekt.class, prosjektId);
-        } finally {
+        } catch (NoResultException e) {
+            System.out.println("Fant ikke prosjekt");
+            return null;
+        }
+        finally {
             em.close();
         }
     }
@@ -58,6 +67,9 @@ public class ProsjektDAO {
             TypedQuery<Prosjekt> query = em.createQuery(queryString, Prosjekt.class);
             query.setParameter("prosjektNavn", prosjektNavn);
             return query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Fant ikke prosjekt");
+            return null;
         } finally {
             em.close();
         }
@@ -78,26 +90,46 @@ public class ProsjektDAO {
         }
     }
 
+    public void skrivUtProsjektInfo(int prosjektId) {
+        EntityManager em = emf.createEntityManager();
+        String queryString = """
+                select p from Prosjekt as p
+                left join fetch p.deltagelser as d
+                left join fetch d.ansatt
+                where p.prosjektid = :prosjektid
+                """;
 
-//    public void skrivUtAlleProsjekter() {
-//        // Lag EntityManager
-//        EntityManager em = emf.createEntityManager(); // emf er din EntityManagerFactory
-//
-//        // Lag JPQL-spørring for å hente alle prosjekter
-//        String queryString = "SELECT p FROM Prosjekt p"; // Henter alle Prosjekt-objekter
-//        TypedQuery<Prosjekt> query = em.createQuery(queryString, Prosjekt.class);
-//
-//        try {
-//            // Utfør spørringen og hent resultatene
-//            List<Prosjekt> prosjekter = query.getResultList();
-//
-//            // Skriv ut alle prosjektene
-//            for (Prosjekt prosjekt : prosjekter) {
-//                prosjekt.skrivUt(""); // Forutsetter at Prosjekt har en skrivUt-metode
-//            }
-//        } finally {
-//            em.close(); // Husk å lukke EntityManager
-//        }
-//    }
+        try {
+            TypedQuery<Prosjekt> query = em.createQuery(queryString, Prosjekt.class);
+            query.setParameter("prosjektid", prosjektId);
+            Prosjekt prosjekt = query.getSingleResult();
+
+            if (prosjekt == null) {
+                System.out.println("Prosjekt finnes ikke i databasen");
+                return;
+            }
+
+            System.out.println("Prosjekt: " + prosjekt.getProsjektNavn());
+            System.out.println("Prosjektbeskrivelse: " +  prosjekt.getBeskrivelse());
+            System.out.println("Ansatte i prosjektet: ");
+
+            int totalTimer= 0;
+
+            for (ProsjektDeltagelse deltagelse : prosjekt.getAnsattProsjekt())  {
+                Ansatt ansatt = deltagelse.getAnsatt();
+                String  rolle = deltagelse.getRolle();
+                int arbeidstimer = deltagelse.getArbeidstimer();
+                totalTimer += deltagelse.getArbeidstimer();
+
+                System.out.println("Ansatt: " + ansatt.getFornavn() + " " + ansatt.getEtternavn() +
+                        " Rolle: " + rolle + " Arbeidstimer: " + arbeidstimer);
+            }
+            System.out.println("Total timer for prosjektet: " + totalTimer);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
 
 }
