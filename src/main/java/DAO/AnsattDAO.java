@@ -7,6 +7,7 @@ import Entity.Prosjekt;
 import Entity.ProsjektDeltagelse;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnsattDAO {
@@ -212,8 +213,15 @@ public class AnsattDAO {
                 return;
             }
 
+            List<ProsjektDeltagelse> deltagelser = new ArrayList<>(ansatt.getProsjektDeltagelse());
+            for (ProsjektDeltagelse pd : deltagelser) {
+                ansatt.fjernTilAnsattProsjekt(pd);
+                em.remove(pd);
+            }
+
             avdeling.fjernAnsatt(ansatt);
             em.remove(ansatt);
+            em.flush();
             tx.commit();
             System.out.println("Ansatt med id " + ansattId + " ble slettet");
 

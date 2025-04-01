@@ -40,7 +40,7 @@ public class ProsjektDeltagelseDAO {
             em.merge(p);
             em.flush();
             tx.commit();
-            System.out.println(arbeidstimer + " Ble lagt til for");
+            System.out.println(arbeidstimer + " Ble lagt til");
         }  catch (Throwable e) {
             if (tx.isActive()) {
                 tx.rollback();

@@ -8,7 +8,7 @@ CREATE TABLE avdeling (
 
                           avdelingId   SERIAL primary key,
                           avdelingNavn varchar(50),
-                          sjefId     int
+                          sjefId       int
 );
 
 CREATE TABLE ansatt (

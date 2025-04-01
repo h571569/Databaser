@@ -27,7 +27,8 @@ public class MainMeny {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Velkommen til Dat107 - Oblig 3 Vennligst velg en handling:");
+
+            System.out.println("\n\nVelkommen til Dat107 - Oblig 3 Vennligst velg en handling:");
             System.out.println("1. Finne en ansatt med ansattId");
             System.out.println("2. Finne en ansatt med brukernavn");
             System.out.println("3. Hente ut alle ansatte");
