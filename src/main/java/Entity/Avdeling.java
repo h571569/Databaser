@@ -24,6 +24,11 @@ public class Avdeling {
 
     public Avdeling() {}
 
+    public Avdeling(String avdelingNavn, Ansatt sjef) {
+        this.avdelingNavn = avdelingNavn;
+        this.sjef = sjef;
+    }
+
     public Avdeling(String avdelingNavn) {
         this.avdelingNavn = avdelingNavn;
         ansatte =  new ArrayList<Ansatt>();
@@ -32,11 +37,11 @@ public class Avdeling {
     public List<Ansatt> getAnsatte() {
         return ansatte;
     }
-    public void  leggTilAnsatte(Ansatt ansatt){
+    public void  leggTilAnsatt(Ansatt ansatt){
         ansatte.add(ansatt);
         ansatt.setAvdeling(this);
     }
-    public void  fjernAnsatte(Ansatt ansatt){
+    public void  fjernAnsatt(Ansatt ansatt){
         ansatte.remove(ansatt);
         ansatt.setAvdeling(null);
     }
@@ -50,10 +55,6 @@ public class Avdeling {
         return avdelingNavn;
     }
 
-
-
-
-
     public void skrivUt(String innrykk) {
         System.out.printf("%sAvdeling nr %d: %s", innrykk, avdelingId, avdelingNavn);
 
@@ -63,5 +64,7 @@ public class Avdeling {
         System.out.println();
         skrivUt("");
         ansatte.forEach(a -> a.skrivUt("\n   "));
+        System.out.println();
+        System.out.println("Sjef er " + getSjef());
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Table(schema = "oblig3")
 @Entity
@@ -27,9 +28,9 @@ public class Ansatt {
 
     @OneToOne(mappedBy = "sjef")
     private Avdeling sjef;
-//
-//    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
-//    private List<ProsjektDeltagelse> deltagelser;
+
+    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
+    private List<ProsjektDeltagelse> deltagelser;
 
     public Ansatt(){}
 
@@ -43,16 +44,15 @@ public class Ansatt {
     }
 
     public void leggTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
-//        deltagelser.add(prosjektDeltagelse);
+        deltagelser.add(prosjektDeltagelse);
 
     }
     public void fjernTilAnsattProsjekt(ProsjektDeltagelse prosjektDeltagelse) {
-//        deltagelser.remove(prosjektDeltagelse);
+        deltagelser.remove(prosjektDeltagelse);
     }
 
     public List<ProsjektDeltagelse> getProsjektDeltagelse() {
-//        return deltagelser;
-        return null;
+        return deltagelser;
     }
 
     public void setAvdeling(Avdeling avdeling) {
@@ -96,12 +96,9 @@ public class Ansatt {
     public void setManedslonn(int manedslonn) {
         this.manedslonn = manedslonn;
     }
-    public void setSjef(Avdeling sjef) {
-        this.sjef = sjef;
-    }
-    public Avdeling getSjef() {
-        return sjef;
-    }
+
+
+
 
 
     @Override
@@ -113,11 +110,12 @@ public class Ansatt {
                 ", ansDato = " + ansDato +
                 ", stilling = " + stilling +
                 ", månedslonn = " + manedslonn +
+                ", avdeling = " + avdeling.getAvdelingId() +
                 " ]";
     }
 
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %d: %s %s %s %s %s %d", innrykk, ansattId, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn);
+        System.out.printf("%sAnsatt nr %d: %s %s %s %s %s %d", innrykk, ansattId, brukernavn, fornavn, etternavn, ansDato, stilling, manedslonn, avdeling.getAvdelingId());
     }
 
     public void skrivUtMedProsjekter() {
