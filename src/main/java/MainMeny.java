@@ -3,6 +3,8 @@ import DAO.AvdelingDAO;
 import DAO.ProsjektDAO;
 import DAO.ProsjektDeltagelseDAO;
 import Entity.Avdeling;
+import Entity.Prosjekt;
+import Entity.ProsjektDeltagelse;
 
 public class MainMeny {
     public static void main(String[] args) {
@@ -15,9 +17,11 @@ public class MainMeny {
         ProsjektDAO prosjektDAO = new ProsjektDAO();
         ProsjektDeltagelseDAO prosjektDeltagelseDAO = new ProsjektDeltagelseDAO();
 
+        Prosjekt p1 = prosjektDAO.finnProsjektMedId(1);
+        p1.skrivUtMedAnsatte();
 
-        Avdeling avdeling = avdelingDAO.finnAvdelingMedId(6);
-        avdelingDAO.slettAvdelingMedId(6);
+//        Avdeling avdeling = avdelingDAO.finnAvdelingMedId(6);
+//        avdelingDAO.slettAvdelingMedId(6);
 
 
 //        ansattDAO.slettAnsattMedId(2);

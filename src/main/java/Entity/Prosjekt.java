@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(schema = "oblig3")
+@Table(schema = "oblig3", name = "prosjekt")
 public class Prosjekt {
 
     @Id
@@ -15,7 +15,7 @@ public class Prosjekt {
     private String prosjektNavn;
     private String beskrivelse;
 
-    @OneToMany(mappedBy = "prosjekt", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "prosjekt")
     private List<ProsjektDeltagelse> deltagelser;
 
 

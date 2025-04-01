@@ -13,4 +13,10 @@ public class ProsjektDeltagelsePK {
         this.ansatt = ansattId;
         this.prosjekt = prosjektId;
     }
+    public int getAnsatt() {
+        return ansatt;
+    }
+    public int getProsjekt() {
+        return prosjekt;
+    }
 }

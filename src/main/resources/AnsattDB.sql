@@ -56,7 +56,7 @@ CREATE TABLE prosjekt (
 );
 
 INSERT INTO
-    prosjekt(prosjektNavn, TEXT)
+    prosjekt(prosjektNavn, beskrivelse)
 values
     ('obligProsjekt','lage en oblig'),
     ('NasaProsjekt','fikse sattelitt forbindelse'),

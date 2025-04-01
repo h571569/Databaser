@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-@Table(schema = "oblig3")
 @Entity
+@Table(schema = "oblig3")
 public class Ansatt {
 
 
@@ -29,7 +29,7 @@ public class Ansatt {
     @OneToOne(mappedBy = "sjef")
     private Avdeling sjef;
 
-    @OneToMany(mappedBy = "prosjekt",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "prosjekt")
     private List<ProsjektDeltagelse> deltagelser;
 
     public Ansatt(){}
@@ -117,6 +117,8 @@ public class Ansatt {
     public void skrivUtMedProsjekter() {
         System.out.println();
         skrivUt("");
-//        deltagelser.forEach(p -> p.skrivUt("\n   "));
+        deltagelser.forEach(p -> p.skrivUt("\n   "));
     }
+
+
 }

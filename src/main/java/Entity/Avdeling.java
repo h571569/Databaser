@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(schema = "oblig3")
+@Table(schema = "oblig3", name = "avdeling")
 @Entity
 public class Avdeling {
 

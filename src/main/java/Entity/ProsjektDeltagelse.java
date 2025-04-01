@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(schema = "oblig3")
+@IdClass(ProsjektDeltagelsePK.class)
 public class ProsjektDeltagelse {
 
     private int timer = 0;
@@ -11,7 +12,7 @@ public class ProsjektDeltagelse {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "prosjektid")
+    @JoinColumn(name = "prosjektId")
     private Prosjekt prosjekt;
 
     @Id
