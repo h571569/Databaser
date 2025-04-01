@@ -14,6 +14,11 @@ public class Avdeling {
 
     private String avdelingNavn;
 
+    @OneToOne
+    @JoinColumn(name = "sjefId")
+    private Ansatt sjef;
+
+
     @OneToMany(mappedBy = "avdeling", fetch = FetchType.EAGER)
     private List<Ansatt> ansatte;
 
@@ -34,6 +39,9 @@ public class Avdeling {
     public void  fjernAnsatte(Ansatt ansatt){
         ansatte.remove(ansatt);
         ansatt.setAvdeling(null);
+    }
+    public Ansatt getSjef() {
+        return sjef;
     }
     public int getAvdelingId() {
         return avdelingId;

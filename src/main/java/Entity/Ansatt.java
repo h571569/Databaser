@@ -24,7 +24,7 @@ public class Ansatt {
     @JoinColumn(name = "avdelingId")
     private Avdeling avdeling;
 
-    // Vet ikke om denne skal være her eller i avdeling
+
     @OneToOne(mappedBy = "sjef")
     private Avdeling sjef;
 //
