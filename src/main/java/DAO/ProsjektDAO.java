@@ -102,29 +102,31 @@ public class ProsjektDAO {
         try {
             TypedQuery<Prosjekt> query = em.createQuery(queryString, Prosjekt.class);
             query.setParameter("prosjektid", prosjektId);
-            Prosjekt prosjekt = query.getSingleResult();
+            try {
+                Prosjekt prosjekt = query.getSingleResult();
 
-            if (prosjekt == null) {
-                System.out.println("Prosjekt finnes ikke i databasen");
-                return;
+                System.out.println("Prosjekt: " + prosjekt.getProsjektNavn());
+                System.out.println("Prosjektbeskrivelse: " +  prosjekt.getBeskrivelse());
+                System.out.println("Ansatte i prosjektet: ");
+
+                int totalTimer= 0;
+
+                for (ProsjektDeltagelse deltagelse : prosjekt.getAnsattProsjekt())  {
+                    Ansatt ansatt = deltagelse.getAnsatt();
+                    String  rolle = deltagelse.getRolle();
+                    int arbeidstimer = deltagelse.getArbeidstimer();
+                    totalTimer += deltagelse.getArbeidstimer();
+
+                    System.out.println("Ansatt: " + ansatt.getFornavn() + " " + ansatt.getEtternavn() +
+                            " Rolle: " + rolle + " Arbeidstimer: " + arbeidstimer);
+
+                }
+                System.out.println("Total timer for prosjektet: " + totalTimer);
+
+            } catch (NoResultException e) {
+                System.out.println("Prosjektet finnes ikke");
             }
 
-            System.out.println("Prosjekt: " + prosjekt.getProsjektNavn());
-            System.out.println("Prosjektbeskrivelse: " +  prosjekt.getBeskrivelse());
-            System.out.println("Ansatte i prosjektet: ");
-
-            int totalTimer= 0;
-
-            for (ProsjektDeltagelse deltagelse : prosjekt.getAnsattProsjekt())  {
-                Ansatt ansatt = deltagelse.getAnsatt();
-                String  rolle = deltagelse.getRolle();
-                int arbeidstimer = deltagelse.getArbeidstimer();
-                totalTimer += deltagelse.getArbeidstimer();
-
-                System.out.println("Ansatt: " + ansatt.getFornavn() + " " + ansatt.getEtternavn() +
-                        " Rolle: " + rolle + " Arbeidstimer: " + arbeidstimer);
-            }
-            System.out.println("Total timer for prosjektet: " + totalTimer);
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {

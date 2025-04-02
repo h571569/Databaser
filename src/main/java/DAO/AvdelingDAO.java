@@ -50,7 +50,7 @@ public class AvdelingDAO {
             em.merge(ansatt);
             tx.commit();
 
-            System.out.println(nyAvdeling + " er lagt til");
+            System.out.println(nyAvdeling.getAvdelingNavn() + " er lagt til");
 
         } catch (Throwable e) {
             e.printStackTrace();
